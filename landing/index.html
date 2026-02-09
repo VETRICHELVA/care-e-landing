@@ -108,7 +108,6 @@
 
 <body>
     <div class="container">
-        <!-- Hero Section -->
         <div class="hero">
             <img src="care-e-logo.png" alt="CARE-E Logo" style="width: 120px; height: 120px; margin-bottom: 20px;">
             <h1>CARE-E</h1>
@@ -118,7 +117,6 @@
 
 
 
-        <!-- About -->
         <div class="box">
             <h2>What is CARE-E?</h2>
             <p><b>CARE-E</b> is an innovative emergency medical logistics platform that leverages artificial
@@ -127,7 +125,6 @@
                 precision timing and temperature control.</p>
         </div>
 
-        <!-- FAQ -->
         <div class="box">
             <h2>Frequently Asked Questions</h2>
 
@@ -146,7 +143,6 @@
             <p>Yes. CARE-E operates round-the-clock for emergency medical requests.</p>
         </div>
 
-        <!-- Registration Form -->
         <h2>Partner Registration</h2>
         <p>Register your healthcare facility to join the CARE-E network</p>
 
@@ -235,7 +231,6 @@
         function handleSubmit(event) {
             event.preventDefault();
 
-            // Get form data
             const formData = new FormData(event.target);
             const submission = {
                 id: "ORG-" + Math.floor(1000 + Math.random() * 9000),
@@ -249,7 +244,6 @@
                 dateSubmitted: new Date().toLocaleDateString()
             };
 
-            // Save to localStorage (Local Shared Database)
             let submissions = JSON.parse(localStorage.getItem('care_e_submissions') || '[]');
             submissions.push(submission);
             localStorage.setItem('care_e_submissions', JSON.stringify(submissions));

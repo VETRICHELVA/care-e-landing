@@ -1,20 +1,15 @@
-// --- BEGIN FIREBASE CONFIGURATION ---
-// Beginner Tip: You can get these keys by creating a free project at console.firebase.google.com
 const firebaseConfig = {
     databaseURL: "https://your-project-id.firebaseio.com"
 };
-// --- END FIREBASE CONFIGURATION ---
 
 window.onload = function () {
     console.log("Admin Panel Loaded");
-    // For now, we show how it WOULD look with real data
     loadFromDatabase();
 };
 
 function loadFromDatabase() {
     console.log("Reading from Local Shared Database...");
 
-    // Read from the shared "LocalStorage" which both pages can see if opened in same session
     const submissions = JSON.parse(localStorage.getItem('care_e_submissions') || '[]');
 
     const tableBody = document.getElementById('tableBody');
@@ -27,7 +22,6 @@ function loadFromDatabase() {
     }
 }
 
-// Beginner trick: We check for new data every 3 seconds automatically
 setInterval(loadFromDatabase, 3000);
 
 function displaySubmissions(submissions) {
