@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Page</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            margin-top: 20px;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .header {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        .view-btn {
+            background-color: #008CBA;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+        }
+        .view-btn:hover {
+            background-color: #007399;
+        }
+        .details {
+            display: none;
+            background-color: #fff3cd;
+            padding: 10px;
+            margin-top: 10px;
+            border-left: 4px solid #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>CARE-E Admin Panel</h1>
+        <p>Organization Registration Forms</p>
+    </div>
+
+    <div>
+        <p><strong>Total Submissions: </strong><span id="totalCount">0</span></p>
+    </div>
+
+    <table id="submissionsTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Organization Name</th>
+                <th>Facility Type</th>
+                <th>Contact Person</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Date Submitted</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <!-- Data will be loaded here -->
+        </tbody>
+    </table>
+
+    <script src="admin.js"></script>
+</body>
+</html>
