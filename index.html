@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CARE-E - Emergency Medical Logistics</title>
+    <link rel="icon" type="image/jpeg" href="care-e-logo.jpg">
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-database-compat.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #cc0000;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #cc0000;
+            padding-bottom: 5px;
+        }
+
+        h3 {
+            color: #666;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 30px 0;
+            background-color: #ffebee;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            max-width: 120px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .box {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 20px 0;
+            background-color: #fafafa;
+        }
+
+        form {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 80px;
+        }
+
+        button {
+            background-color: #cc0000;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            margin-top: 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #990000;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #666;
+        }
+
+        .required {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="hero">
+            <img src="care-e-logo.jpg" alt="CARE-E Logo" class="logo">
+            <h1>CARE-E</h1>
+            <h3>AI-Powered Emergency Medical Logistics</h3>
+            <p>Fast, Reliable, Life-Saving Logistics</p>
+        </div>
+
+
+
+        <div class="box">
+            <h2>What is CARE-E?</h2>
+            <p><b>CARE-E</b> is an innovative emergency medical logistics platform that leverages artificial
+                intelligence to optimize cold-chain delivery routes for time-sensitive medical supplies. Our AI-powered
+                system ensures that vaccines, blood products, organs, and critical medications are transported with
+                precision timing and temperature control.</p>
+        </div>
+
+        <div class="box">
+            <h2>Frequently Asked Questions</h2>
+
+            <h3>What is CARE-E?</h3>
+            <p>CARE-E is an emergency cold-chain delivery service that transports blood, vaccines, and critical medical
+                supplies quickly and safely.</p>
+
+            <h3>Who can use CARE-E's services?</h3>
+            <p>Hospitals, clinics, blood banks, diagnostic labs, and other healthcare facilities can request on-demand
+                deliveries.</p>
+
+            <h3>How fast is the delivery?</h3>
+            <p>Most deliveries reach within 30–60 minutes, depending on distance and traffic.</p>
+
+            <h3>Is the service available 24/7?</h3>
+            <p>Yes. CARE-E operates round-the-clock for emergency medical requests.</p>
+        </div>
+
+        <h2>Partner Registration</h2>
+        <p>Register your healthcare facility to join the CARE-E network</p>
+
+        <form onsubmit="handleSubmit(event)">
+            <h3>Facility Type</h3>
+
+            <label>Type of Facility <span class="required">*</span></label>
+            <select name="facilityType" required>
+                <option value="">Select facility type</option>
+                <option value="hospital">Hospital</option>
+                <option value="blood-bank">Blood Bank</option>
+                <option value="diagnostic-lab">Diagnostic Lab</option>
+                <option value="clinic">Clinic</option>
+                <option value="pharmacy">Pharmacy</option>
+                <option value="other">Other</option>
+            </select>
+
+            <h3>Facility Information</h3>
+
+            <label>Facility Name <span class="required">*</span></label>
+            <input type="text" name="facilityName" required>
+
+            <label>Registration Number <span class="required">*</span></label>
+            <input type="text" name="registrationNumber" required>
+
+            <label>License Number</label>
+            <input type="text" name="licenseNumber">
+
+            <label>Address <span class="required">*</span></label>
+            <textarea name="address" required></textarea>
+
+            <label>City <span class="required">*</span></label>
+            <input type="text" name="city" required>
+
+            <label>Pincode <span class="required">*</span></label>
+            <input type="text" name="pincode" required>
+
+            <h3>Contact Information</h3>
+
+            <label>Contact Person Name <span class="required">*</span></label>
+            <input type="text" name="contactPerson" required>
+
+            <label>Designation <span class="required">*</span></label>
+            <input type="text" name="designation" required>
+
+            <label>Phone Number <span class="required">*</span></label>
+            <input type="tel" name="phone" required>
+
+            <label>Email Address <span class="required">*</span></label>
+            <input type="email" name="email" required>
+
+            <label>Alternate Phone Number</label>
+            <input type="tel" name="alternatePhone">
+
+            <h3>Service Requirements</h3>
+
+            <label>Services Needed <span class="required">*</span></label>
+            <select name="servicesNeeded" required>
+                <option value="">Select primary service</option>
+                <option value="blood-delivery">Blood & Blood Products Delivery</option>
+                <option value="vaccine-delivery">Vaccine Delivery</option>
+                <option value="lab-samples">Lab Sample Transport</option>
+                <option value="medicines">Emergency Medicines</option>
+                <option value="all">All Services</option>
+            </select>
+
+            <label>Expected Monthly Delivery Volume</label>
+            <select name="expectedVolume">
+                <option value="">Select expected volume</option>
+                <option value="1-10">1-10 deliveries</option>
+                <option value="11-50">11-50 deliveries</option>
+                <option value="51-100">51-100 deliveries</option>
+                <option value="100+">100+ deliveries</option>
+            </select>
+
+            <label>Additional Notes</label>
+            <textarea name="additionalNotes"></textarea>
+
+            <button type="submit">Submit Registration</button>
+        </form>
+
+
+    </div>
+
+    <script>
+        // Firebase Configuration - Same as Admin Portal
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "care-e-admin.firebaseapp.com",
+            databaseURL: "https://care-e-admin-default-rtdb.firebaseio.com",
+            projectId: "care-e-admin",
+            storageBucket: "care-e-admin.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        // Initialize Firebase
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        const database = firebase.database();
+
+        function handleSubmit(event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const submissionId = "ORG-" + Math.floor(1000 + Math.random() * 9000);
+            const submission = {
+                id: submissionId,
+                organizationName: formData.get('facilityName'),
+                facilityType: formData.get('facilityType'),
+                contactPerson: formData.get('contactPerson'),
+                email: formData.get('email'),
+                phone: formData.get('phone'),
+                address: formData.get('address'),
+                serviceNeeds: formData.get('servicesNeeded'),
+                dateSubmitted: new Date().toLocaleDateString()
+            };
+
+            // Save to Firebase
+            database.ref('submissions/' + submissionId).set(submission)
+                .then(() => {
+                    alert('Registration Successful! Your submission has been received.');
+                    event.target.reset();
+                })
+                .catch((error) => {
+                    alert('Error: ' + error.message);
+                });
+        }
+    </script>
+</body>
+
+</html>
