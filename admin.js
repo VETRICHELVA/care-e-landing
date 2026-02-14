@@ -1,6 +1,18 @@
 const firebaseConfig = {
-    databaseURL: "https://your-project-id.firebaseio.com"
+    apiKey: "YOUR_API_KEY",
+    authDomain: "care-e-admin.firebaseapp.com",
+    databaseURL: "https://care-e-admin-default-rtdb.firebaseio.com",
+    projectId: "care-e-admin",
+    storageBucket: "care-e-admin.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
 };
+
+// Initialize Firebase
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+const database = firebase.database();
 
 window.onload = function () {
     console.log("Admin Panel Loaded");
@@ -8,18 +20,23 @@ window.onload = function () {
 };
 
 function loadFromDatabase() {
-    console.log("Reading from Local Shared Database...");
-
-    const submissions = JSON.parse(localStorage.getItem('care_e_submissions') || '[]');
-
-    const tableBody = document.getElementById('tableBody');
-
-    if (submissions.length === 0) {
-        tableBody.innerHTML = '<tr><td colspan="8" style="text-align:center;">No submissions found. Fill the form on the landing page!</td></tr>';
-        document.getElementById('totalCount').textContent = '0';
-    } else {
-        displaySubmissions(submissions);
-    }
+    console.log("Reading from Firebase Database...");
+    
+    database.ref('submissions').on('value', (snapshot) => {
+        const submissions = [];
+        snapshot.forEach((childSnapshot) => {
+            submissions.push(childSnapshot.val());
+        });
+        
+        const tableBody = document.getElementById('tableBody');
+        
+        if (submissions.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="8" style="text-align:center;">No submissions found. Fill the form on the landing page!</td></tr>';
+            document.getElementById('totalCount').textContent = '0';
+        } else {
+            displaySubmissions(submissions);
+        }
+    });
 }
 
 setInterval(loadFromDatabase, 3000);
@@ -69,19 +86,14 @@ function viewDetails(id) {
 
 function deleteSubmission(id) {
     if (confirm("Are you sure you want to delete this submission?")) {
-        let submissions = JSON.parse(localStorage.getItem('care_e_submissions') || '[]');
-        const initialLength = submissions.length;
-        submissions = submissions.filter(function (submission) {
-            return submission.id !== id;
-        });
-
-        if (submissions.length < initialLength) {
-            localStorage.setItem('care_e_submissions', JSON.stringify(submissions));
-            loadFromDatabase();
-            alert("Submission deleted successfully.");
-        } else {
-            alert("Submission not found.");
-        }
+        database.ref('submissions').child(id).remove()
+            .then(() => {
+                alert("Submission deleted successfully.");
+                loadFromDatabase();
+            })
+            .catch((error) => {
+                alert("Error deleting submission: " + error.message);
+            });
     }
 }
 
